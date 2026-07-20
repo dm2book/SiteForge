@@ -8,6 +8,11 @@ S3-compatible object storage for bundles/assets/screenshots.
 
 ## 1. Entity overview
 
+> **Note:** the authoritative, fully-specified schema (all core tables, ERD,
+> relationship map, partitioning and integrity rules) now lives in
+> [`DATABASE.md`](DATABASE.md). This section remains as the original
+> high-level sketch; where they differ, `DATABASE.md` wins.
+
 ```
 users ──< workspaces ──< projects ──< generations ──< generation_stages
                              │              │                │

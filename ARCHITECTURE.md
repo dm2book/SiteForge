@@ -13,7 +13,9 @@ This is the master architecture document. Detailed sub-designs live in `docs/`:
 | [`docs/PIPELINE.md`](docs/PIPELINE.md) | The multi-stage generation pipeline (the heart of the platform) |
 | [`docs/DESIGN_DNA.md`](docs/DESIGN_DNA.md) | The anti-generic design system: archetypes, tokens, motion, section library |
 | [`docs/QUALITY.md`](docs/QUALITY.md) | Quality tiers, automated quality gates, scoring rubric vs. competitors |
-| [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) | Entities, storage, and the public/internal API surface |
+| [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) | Niche taxonomy, artifact schemas, API surface, storage layout |
+| [`docs/DATABASE.md`](docs/DATABASE.md) | Full database schema, ERD, relationships, integrity rules |
+| [`docs/SCALING.md`](docs/SCALING.md) | Scaling strategy to 100k users and the production deployment architecture |
 
 ---
 

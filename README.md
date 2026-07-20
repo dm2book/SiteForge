@@ -19,7 +19,9 @@ Start with [`ARCHITECTURE.md`](ARCHITECTURE.md), then:
 | [`docs/PIPELINE.md`](docs/PIPELINE.md) | The 8-stage generation pipeline: brief synthesis → design tokens → IA planning → content → composition → assets → quality gates → repair loop |
 | [`docs/DESIGN_DNA.md`](docs/DESIGN_DNA.md) | The anti-generic engine: design archetypes, token generators, the motion language, the section pattern library, uniqueness fingerprinting |
 | [`docs/QUALITY.md`](docs/QUALITY.md) | Quality tiers (Standard/Premium/Signature), the 7 automated gates, and the benchmark rubric vs. Lovable, Bolt, Replit AI, v0, and agency work |
-| [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) | Entities, niche taxonomy, artifact schemas, API surface, storage layout |
+| [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) | Niche taxonomy, artifact schemas, API surface, storage layout |
+| [`docs/DATABASE.md`](docs/DATABASE.md) | Full database schema (11 core tables), ERD, relationships, integrity rules |
+| [`docs/SCALING.md`](docs/SCALING.md) | Scaling strategy to 100,000 users + production deployment architecture |
 
 ## Non-negotiables
 
