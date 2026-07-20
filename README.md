@@ -24,6 +24,7 @@ Start with [`ARCHITECTURE.md`](ARCHITECTURE.md), then:
 | [`docs/SCALING.md`](docs/SCALING.md) | Scaling strategy to 100,000 users + production deployment architecture |
 | [`docs/GENERATION_ENGINE.md`](docs/GENERATION_ENGINE.md) | The generation engine: structure, layout, content, components, animations, motion — driven by per-niche rule sets |
 | [`docs/NICHE_PLAYBOOKS.md`](docs/NICHE_PLAYBOOKS.md) | Twelve launch niches (Auto Dealer → Contractor), each with exclusive hero families, signature sections, and its own generation rules |
+| [`docs/DESIGN_INTELLIGENCE.md`](docs/DESIGN_INTELLIGENCE.md) | The Design Intelligence Engine: color, typography, motion, and layout intelligence calibrated to Apple/Stripe/Porsche/Linear/Arc/Notion-grade disciplines, with automatic design-language selection per niche |
 
 ## Non-negotiables
 

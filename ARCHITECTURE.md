@@ -18,6 +18,7 @@ This is the master architecture document. Detailed sub-designs live in `docs/`:
 | [`docs/SCALING.md`](docs/SCALING.md) | Scaling strategy to 100k users and the production deployment architecture |
 | [`docs/GENERATION_ENGINE.md`](docs/GENERATION_ENGINE.md) | The generation engine: six outputs, niche rule sets, layout non-reuse enforcement |
 | [`docs/NICHE_PLAYBOOKS.md`](docs/NICHE_PLAYBOOKS.md) | The twelve launch niche rule sets with exclusive hero families and signature sections |
+| [`docs/DESIGN_INTELLIGENCE.md`](docs/DESIGN_INTELLIGENCE.md) | The Design Intelligence Engine: reference-grade disciplines, the Design Language object, five intelligence systems, automatic language selection |
 
 ---
 
