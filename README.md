@@ -22,6 +22,8 @@ Start with [`ARCHITECTURE.md`](ARCHITECTURE.md), then:
 | [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) | Niche taxonomy, artifact schemas, API surface, storage layout |
 | [`docs/DATABASE.md`](docs/DATABASE.md) | Full database schema (11 core tables), ERD, relationships, integrity rules |
 | [`docs/SCALING.md`](docs/SCALING.md) | Scaling strategy to 100,000 users + production deployment architecture |
+| [`docs/GENERATION_ENGINE.md`](docs/GENERATION_ENGINE.md) | The generation engine: structure, layout, content, components, animations, motion — driven by per-niche rule sets |
+| [`docs/NICHE_PLAYBOOKS.md`](docs/NICHE_PLAYBOOKS.md) | Twelve launch niches (Auto Dealer → Contractor), each with exclusive hero families, signature sections, and its own generation rules |
 
 ## Non-negotiables
 

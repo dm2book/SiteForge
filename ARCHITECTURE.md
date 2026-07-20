@@ -16,6 +16,8 @@ This is the master architecture document. Detailed sub-designs live in `docs/`:
 | [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) | Niche taxonomy, artifact schemas, API surface, storage layout |
 | [`docs/DATABASE.md`](docs/DATABASE.md) | Full database schema, ERD, relationships, integrity rules |
 | [`docs/SCALING.md`](docs/SCALING.md) | Scaling strategy to 100k users and the production deployment architecture |
+| [`docs/GENERATION_ENGINE.md`](docs/GENERATION_ENGINE.md) | The generation engine: six outputs, niche rule sets, layout non-reuse enforcement |
+| [`docs/NICHE_PLAYBOOKS.md`](docs/NICHE_PLAYBOOKS.md) | The twelve launch niche rule sets with exclusive hero families and signature sections |
 
 ---
 
