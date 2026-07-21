@@ -21,6 +21,7 @@ This is the master architecture document. Detailed sub-designs live in `docs/`:
 | [`docs/DESIGN_INTELLIGENCE.md`](docs/DESIGN_INTELLIGENCE.md) | The Design Intelligence Engine: reference-grade disciplines, the Design Language object, five intelligence systems, automatic language selection |
 | [`docs/CONTENT_INTELLIGENCE.md`](docs/CONTENT_INTELLIGENCE.md) | The Content Intelligence Engine: voice contracts, copy frameworks, the specificity engine, multi-pass generation, SEO intelligence |
 | [`docs/STUDIO.md`](docs/STUDIO.md) | The Preview Studio: semantic edit grammar, partial-pipeline execution, versioning, publish flow |
+| [`docs/3D_ENGINE.md`](docs/3D_ENGINE.md) | The 3D Engine: the 3D Value Judge, Three.js/R3F/GSAP runtime layers, scene pattern library, 3D asset pipeline, G8 gate |
 
 ---
 

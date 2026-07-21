@@ -27,6 +27,7 @@ Start with [`ARCHITECTURE.md`](ARCHITECTURE.md), then:
 | [`docs/DESIGN_INTELLIGENCE.md`](docs/DESIGN_INTELLIGENCE.md) | The Design Intelligence Engine: color, typography, motion, and layout intelligence calibrated to Apple/Stripe/Porsche/Linear/Arc/Notion-grade disciplines, with automatic design-language selection per niche |
 | [`docs/CONTENT_INTELLIGENCE.md`](docs/CONTENT_INTELLIGENCE.md) | The Content Intelligence Engine: voice contracts, copy frameworks as genre, the specificity engine, four-pass generation, SEO as a content layer |
 | [`docs/STUDIO.md`](docs/STUDIO.md) | The Preview Studio: semantic editing ("make the hero calmer") compiled to typed ops, immutable versioning, gated publish flow |
+| [`docs/3D_ENGINE.md`](docs/3D_ENGINE.md) | The 3D Engine: Three.js / React Three Fiber / GSAP / WebGL scenes as gated content (vehicle viewers, walkthroughs, dish presentations) — shipped only when the 3D Value Judge scores them as communicative, never decorative |
 
 ## Non-negotiables
 
