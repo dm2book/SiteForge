@@ -30,6 +30,7 @@ Start with [`ARCHITECTURE.md`](ARCHITECTURE.md), then:
 | [`docs/3D_ENGINE.md`](docs/3D_ENGINE.md) | The 3D Engine: Three.js / React Three Fiber / GSAP / WebGL scenes as gated content (vehicle viewers, walkthroughs, dish presentations) — shipped only when the 3D Value Judge scores them as communicative, never decorative |
 | [`docs/MOTION_ENGINE.md`](docs/MOTION_ENGINE.md) | The Motion Engine: no generic fades — a named move vocabulary, scroll storytelling as compiled scenes, shared-element page transitions, hero/cinematic/product reveals, hover and micro-interaction systems, and per-niche motion signatures |
 | [`docs/AI_PROVIDERS.md`](docs/AI_PROVIDERS.md) | The AI Provider System: connect Claude / GPT / Arena / Lovable / Bolt / v0 accounts, envelope-encrypted credentials behind a broker (never passwords), credit + remaining-generation monitoring with alerts, per-project engine policies |
+| [`docs/PREVIEW_ENGINE.md`](docs/PREVIEW_ENGINE.md) | The Preview Engine: watch the site assemble itself during generation, real-viewport desktop/tablet/mobile frames, live motion with replay/slow-mo/reduced-motion controls, and SEO · Accessibility · Performance scorecards straight from the quality gates |
 
 ## Non-negotiables
 
