@@ -23,6 +23,7 @@ This is the master architecture document. Detailed sub-designs live in `docs/`:
 | [`docs/STUDIO.md`](docs/STUDIO.md) | The Preview Studio: semantic edit grammar, partial-pipeline execution, versioning, publish flow |
 | [`docs/3D_ENGINE.md`](docs/3D_ENGINE.md) | The 3D Engine: the 3D Value Judge, Three.js/R3F/GSAP runtime layers, scene pattern library, 3D asset pipeline, G8 gate |
 | [`docs/MOTION_ENGINE.md`](docs/MOTION_ENGINE.md) | The Motion Engine: MotionScript, the move vocabulary, scroll storytelling, transitions, reveal/hover/micro systems, niche motion signatures |
+| [`docs/AI_PROVIDERS.md`](docs/AI_PROVIDERS.md) | The AI Provider System: BYO provider accounts, vault-grade credential security, quota/credit monitoring, engine routing policies |
 
 ---
 
