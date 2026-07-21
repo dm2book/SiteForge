@@ -28,6 +28,7 @@ Start with [`ARCHITECTURE.md`](ARCHITECTURE.md), then:
 | [`docs/CONTENT_INTELLIGENCE.md`](docs/CONTENT_INTELLIGENCE.md) | The Content Intelligence Engine: voice contracts, copy frameworks as genre, the specificity engine, four-pass generation, SEO as a content layer |
 | [`docs/STUDIO.md`](docs/STUDIO.md) | The Preview Studio: semantic editing ("make the hero calmer") compiled to typed ops, immutable versioning, gated publish flow |
 | [`docs/3D_ENGINE.md`](docs/3D_ENGINE.md) | The 3D Engine: Three.js / React Three Fiber / GSAP / WebGL scenes as gated content (vehicle viewers, walkthroughs, dish presentations) — shipped only when the 3D Value Judge scores them as communicative, never decorative |
+| [`docs/MOTION_ENGINE.md`](docs/MOTION_ENGINE.md) | The Motion Engine: no generic fades — a named move vocabulary, scroll storytelling as compiled scenes, shared-element page transitions, hero/cinematic/product reveals, hover and micro-interaction systems, and per-niche motion signatures |
 
 ## Non-negotiables
 
