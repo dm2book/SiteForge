@@ -25,6 +25,8 @@ Start with [`ARCHITECTURE.md`](ARCHITECTURE.md), then:
 | [`docs/GENERATION_ENGINE.md`](docs/GENERATION_ENGINE.md) | The generation engine: structure, layout, content, components, animations, motion — driven by per-niche rule sets |
 | [`docs/NICHE_PLAYBOOKS.md`](docs/NICHE_PLAYBOOKS.md) | Twelve launch niches (Auto Dealer → Contractor), each with exclusive hero families, signature sections, and its own generation rules |
 | [`docs/DESIGN_INTELLIGENCE.md`](docs/DESIGN_INTELLIGENCE.md) | The Design Intelligence Engine: color, typography, motion, and layout intelligence calibrated to Apple/Stripe/Porsche/Linear/Arc/Notion-grade disciplines, with automatic design-language selection per niche |
+| [`docs/CONTENT_INTELLIGENCE.md`](docs/CONTENT_INTELLIGENCE.md) | The Content Intelligence Engine: voice contracts, copy frameworks as genre, the specificity engine, four-pass generation, SEO as a content layer |
+| [`docs/STUDIO.md`](docs/STUDIO.md) | The Preview Studio: semantic editing ("make the hero calmer") compiled to typed ops, immutable versioning, gated publish flow |
 
 ## Non-negotiables
 
