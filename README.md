@@ -12,7 +12,10 @@ started (by design — see the phased roadmap).
 
 ## Read the design
 
-Start with [`ARCHITECTURE.md`](ARCHITECTURE.md), then:
+**[`SITEFORGE_MASTER_SPEC.md`](SITEFORGE_MASTER_SPEC.md) is the single build
+authority** — the consolidated, normative specification of the entire
+platform. Start there to build; start with [`ARCHITECTURE.md`](ARCHITECTURE.md)
+and the documents below for per-system depth and rationale:
 
 | Document | What it covers |
 |---|---|
