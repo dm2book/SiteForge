@@ -154,3 +154,14 @@
 .sf-footer-grid { display: grid; gap: 20px; }
 .sf-footer-name { font-family: var(--sf-font-heading); font-size: 1.15rem; font-weight: 700; }
 @media (min-width: 720px) { .sf-footer-grid { grid-template-columns: 1fr auto; } }
+
+/* Vangnet voor een onbekend bloktype (alleen zichtbaar buiten productie). */
+.sf-unknown {
+  padding: 16px 18px;
+  border: 1px dashed var(--sf-accent);
+  border-radius: var(--sf-radius);
+  background: var(--sf-surface);
+  color: var(--sf-ink);
+  font-size: 0.9rem;
+}
+.sf-unknown code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; }

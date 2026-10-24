@@ -17,12 +17,18 @@ describe('de poort: het schema houdt alles tegen wat niet klopt', () => {
     expect(result.success).toBe(false);
   });
 
-  it('kent precies de bloktypes die we documenteren', () => {
-    for (const type of BLOCK_TYPES) {
-      const built = buildBarberSite(brief);
-      expect(typeof type).toBe('string');
-      expect(built.blocks.every((b) => BLOCK_TYPES.includes(b.type))).toBe(true);
+  /* Deze test beweerde eerder de bloktypes te controleren maar assereerde
+     `typeof type === 'string'` — altijd waar. Nu controleert hij wat de naam
+     belooft: dat BLOCK_TYPES volledig is én dat het barbier-template er niet
+     buiten kleurt. De rendering per type staat in blocks.test.tsx. */
+  it('somt BLOCK_TYPES élk type op dat het schema accepteert', () => {
+    const inTemplate = new Set(buildBarberSite(brief).blocks.map((b) => b.type));
+    for (const type of inTemplate) {
+      expect(BLOCK_TYPES, `"${type}" ontbreekt in BLOCK_TYPES`).toContain(type);
     }
+    // Negen blokken in het schema, negen in de lijst: geen stille gaten.
+    expect(new Set(BLOCK_TYPES).size).toBe(BLOCK_TYPES.length);
+    expect(BLOCK_TYPES.length).toBe(9);
   });
 
   it('weigert een link met een javascript:-protocol', () => {

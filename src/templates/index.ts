@@ -1,32 +1,27 @@
 import type { Brief } from '@/lib/brief';
 import type { SiteConfig } from '@/site/schema';
+import type { AvailableCategoryId } from './categories';
 import { buildBarberSite } from './barber';
+
+export * from './categories';
+
+type TemplateBuilder = (brief: Brief) => SiteConfig;
 
 /**
  * De templateregistry.
  *
- * Eén plek waar branche → bouwfunctie staat. Een nieuwe branche toevoegen is
- * een regel hier plus een bestand ernaast; de rest van de applicatie verandert
- * niet. Dat is de reden dat dit een registry is en geen switch ergens diep in
- * een component.
+ * Het type is `Record<AvailableCategoryId, …>`, en `AvailableCategoryId` wordt
+ * afgeleid uit `categories.ts`. Zet je daar een branche op `available: true`
+ * zonder hier een bouwfunctie toe te voegen, dan is dat een compilatiefout — je
+ * kunt dus geen branche aanbieden die niets oplevert.
  */
-export const TEMPLATE_BUILDERS = {
+export const TEMPLATE_BUILDERS: Record<AvailableCategoryId, TemplateBuilder> = {
   barber: buildBarberSite,
-} as const;
-
-export type TemplateCategory = keyof typeof TEMPLATE_BUILDERS;
-
-export function hasTemplate(category: string): category is TemplateCategory {
-  return category in TEMPLATE_BUILDERS;
-}
+};
 
 export function buildSite(brief: Brief): SiteConfig {
-  const build = TEMPLATE_BUILDERS[brief.category as TemplateCategory];
-  if (!build) {
-    throw new Error(
-      `Er is nog geen template voor de branche "${brief.category}". ` +
-        `Beschikbaar: ${Object.keys(TEMPLATE_BUILDERS).join(', ')}.`,
-    );
-  }
-  return build(brief);
+  /* `brief.category` is door het schema al beperkt tot een beschikbare branche,
+     dus deze opzoeking kan niet mislukken. Geen onbereikbare foutmelding meer
+     die nooit getest kon worden. */
+  return TEMPLATE_BUILDERS[brief.category](brief);
 }

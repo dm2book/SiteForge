@@ -215,18 +215,32 @@ export const BlockSchema = z.discriminatedUnion('type', [
 export type Block = z.infer<typeof BlockSchema>;
 export type BlockType = Block['type'];
 
-/** Alle toegestane bloktypes — dit is wat het AI-model later te zien krijgt. */
-export const BLOCK_TYPES = [
-  'hero',
-  'stats',
-  'services',
-  'gallery',
-  'team',
-  'testimonials',
-  'hours',
-  'cta',
-  'footer',
-] as const satisfies readonly BlockType[];
+/**
+ * Alle toegestane bloktypes — dit is wat het AI-model later te zien krijgt.
+ *
+ * Afgeleid uit een `Record<BlockType, true>` in plaats van met de hand
+ * opgeschreven. Dat is het verschil tussen "elk item in de lijst is een geldig
+ * type" (wat `satisfies` gaf) en "elk type staat in de lijst" (wat we nodig
+ * hebben). Vergeet je hieronder een type, dan is dat nu een compilatiefout;
+ * eerder compileerde het gewoon en kreeg het model dat blok nooit te zien.
+ */
+const BLOCK_TYPE_REGISTRY: Record<BlockType, true> = {
+  hero: true,
+  stats: true,
+  services: true,
+  gallery: true,
+  team: true,
+  testimonials: true,
+  hours: true,
+  cta: true,
+  footer: true,
+};
+
+export const BLOCK_TYPES = Object.keys(BLOCK_TYPE_REGISTRY) as [BlockType, ...BlockType[]];
+
+export function isBlockType(value: string): value is BlockType {
+  return value in BLOCK_TYPE_REGISTRY;
+}
 
 /* ── De hele website ──────────────────────────────────────────────────────── */
 

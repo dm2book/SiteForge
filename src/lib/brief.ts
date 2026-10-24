@@ -1,5 +1,13 @@
 import { z } from 'zod';
-import type { ThemeId } from '@/themes/presets';
+import {
+  CATEGORY_IDS,
+  categoryLabel,
+  isAvailableCategory,
+  isCategoryId,
+  type AvailableCategoryId,
+  type CategoryId,
+} from '@/templates/categories';
+import { THEME_IDS, type ThemeId } from '@/themes/presets';
 
 /**
  * De brief: wat de ondernemer invult in het formulier.
@@ -11,8 +19,34 @@ import type { ThemeId } from '@/themes/presets';
 export const BriefSchema = z.object({
   businessName: z.string().trim().min(2, 'Vul een bedrijfsnaam in (minstens 2 tekens).').max(60),
   city: z.string().trim().max(60).optional().or(z.literal('')),
-  category: z.enum(['barber'], { message: 'Kies een branche.' }),
-  theme: z.string().min(1),
+
+  /* Twee aparte controles, want het zijn twee verschillende problemen. Een
+     onbekende waarde is onzin; een bestaande branche zonder template is een
+     redelijke wens waar we nog niet aan toe zijn. De gebruiker hoort het
+     verschil te lezen.
+
+     Let op het gebruik van `error` en niet `message`: in Zod 4 geldt een
+     `message` op het enum als foutopvang voor het hele veld en overschrijft die
+     óók de melding van de refine hieronder. Met `error` op beide blijven de twee
+     meldingen apart — gecontroleerd met deze zod-versie, zie de tests in
+     tests/categories.test.ts. */
+  category: z
+    .enum(CATEGORY_IDS, { error: 'Kies een branche uit de lijst.' })
+    .refine(isAvailableCategory, {
+      error: (issue) => {
+        const value = issue.input;
+        const label = isCategoryId(String(value))
+          ? categoryLabel(value as CategoryId)
+          : 'die branche';
+        return `Voor ${label} is er nog geen ontwerp. Kies voorlopig een andere branche.`;
+      },
+    }),
+
+  /* Het thema wordt hier gevalideerd in plaats van verderop afgevangen. Eerder
+     stond hier z.string() terwijl het type ThemeId beloofde; die leugen werd
+     met twee casts overeind gehouden. */
+  theme: z.enum(THEME_IDS, { error: 'Kies een stijl uit de lijst.' }),
+
   /** Hoe lang bestaat de zaak? Alleen gebruikt om concrete zinnen te maken. */
   since: z
     .string()
@@ -22,12 +56,10 @@ export const BriefSchema = z.object({
     .or(z.literal('')),
 });
 
-export type Brief = z.infer<typeof BriefSchema> & { theme: ThemeId };
+/**
+ * Het type volgt nu uit het schema in plaats van ernaast te leven. Wat het type
+ * belooft, is precies wat de validatie waarmaakt.
+ */
+export type Brief = z.infer<typeof BriefSchema>;
 
-export const CATEGORIES = [
-  { id: 'barber', name: 'Barbier / kapsalon', available: true },
-  { id: 'restaurant', name: 'Restaurant', available: false },
-  { id: 'auto', name: 'Autodealer', available: false },
-  { id: 'realestate', name: 'Vastgoed', available: false },
-  { id: 'gym', name: 'Sportschool', available: false },
-] as const;
+export type { AvailableCategoryId, CategoryId, ThemeId };

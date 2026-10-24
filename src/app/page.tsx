@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CATEGORIES } from '@/lib/brief';
+import { CATEGORIES, CATEGORY_IDS } from '@/templates/categories';
 import { THEME_LIST } from '@/themes/presets';
 
 /**
@@ -91,10 +91,10 @@ export default function HomePage() {
                     defaultValue="barber"
                     className="min-h-12 rounded-lg border border-line-2 bg-bg-2 px-4 text-ink focus:border-brand focus:outline-none"
                   >
-                    {CATEGORIES.map((c) => (
-                      <option key={c.id} value={c.id} disabled={!c.available}>
-                        {c.name}
-                        {c.available ? '' : ' — binnenkort'}
+                    {CATEGORY_IDS.map((id) => (
+                      <option key={id} value={id} disabled={!CATEGORIES[id].available}>
+                        {CATEGORIES[id].label}
+                        {CATEGORIES[id].available ? '' : ' — binnenkort'}
                       </option>
                     ))}
                   </select>

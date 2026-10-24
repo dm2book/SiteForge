@@ -1,5 +1,5 @@
 import type { Brief } from '@/lib/brief';
-import { THEMES, type ThemeId } from '@/themes/presets';
+import { THEMES } from '@/themes/presets';
 import type { SiteConfig } from '@/site/schema';
 
 /**
@@ -19,7 +19,9 @@ export function buildBarberSite(brief: Brief): SiteConfig {
   const name = brief.businessName.trim();
   const city = (brief.city || '').trim();
   const since = (brief.since || '').trim();
-  const theme = THEMES[brief.theme as ThemeId] ?? THEMES['midnight-craft'];
+  /* Geen cast en geen terugval meer nodig: het schema garandeert dat
+     `brief.theme` een bestaand thema is. */
+  const theme = THEMES[brief.theme];
 
   const place = city ? `${city}` : 'de stad';
   const sinceLine = since ? `Skin fades sinds ${since}.` : 'Vakwerk, elke dag opnieuw.';

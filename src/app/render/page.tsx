@@ -1,7 +1,8 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { briefFromParams } from '@/lib/params';
 import { buildSite } from '@/templates';
-import { parseSiteConfig } from '@/site/schema';
+import { parseSiteConfig, type SiteConfig } from '@/site/schema';
 import { SiteRenderer } from '@/site/SiteRenderer';
 
 /**
@@ -15,11 +16,51 @@ export const dynamic = 'force-dynamic';
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
-export default async function RenderPage({ searchParams }: Props) {
-  const result = briefFromParams(await searchParams);
-  if (!result.ok) notFound();
+/**
+ * Bouwt de configuratie en valideert hem.
+ *
+ * Zowel `generateMetadata` als de pagina zelf hebben hem nodig. Next roept de
+ * twee los van elkaar aan, dus dit draait tweemaal per verzoek — dat is nu
+ * goedkoop (het template is een pure functie) en wordt straks één opzoeking in
+ * de database.
+ */
+function resolveConfig(
+  params: Record<string, string | string[] | undefined>,
+): SiteConfig | null {
+  const brief = briefFromParams(params);
+  if (!brief.ok) return null;
 
-  const config = buildSite(result.brief);
+  const parsed = parseSiteConfig(buildSite(brief.brief));
+  return parsed.ok ? parsed.config : null;
+}
+
+/**
+ * De titel en omschrijving van de KLANT, niet die van SiteForge.
+ *
+ * Dit ontbrak: het template rekende `meta.title` en `meta.description` keurig
+ * uit, er was zelfs een test op, maar ze kwamen nooit in de `<head>`. Elke
+ * gegenereerde site droeg daardoor de titel van de bouwer zelf — wat bij
+ * publicatie betekent dat Google iedere klantsite als "SiteForge" indexeert.
+ */
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const config = resolveConfig(await searchParams);
+  if (!config) return { title: 'Website niet gevonden' };
+
+  const { title, description, businessName } = config.meta;
+  return {
+    title,
+    description,
+    openGraph: { title, description, siteName: businessName, type: 'website' },
+    twitter: { card: 'summary_large_image', title, description },
+  };
+}
+
+export default async function RenderPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const brief = briefFromParams(params);
+  if (!brief.ok) notFound();
+
+  const config = buildSite(brief.brief);
 
   /* Het template bouwt de configuratie, maar hij gaat nog steeds door dezelfde
      poort als straks een AI-antwoord. Zo merken we het meteen als een template

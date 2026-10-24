@@ -28,7 +28,7 @@ function Head({ eyebrow, heading, intro }: { eyebrow?: string; heading: string; 
   );
 }
 
-export function BlockView({ block }: { block: Block }) {
+export function BlockView({ block }: { block: Block }): React.JSX.Element {
   switch (block.type) {
     case 'hero':
       return (
@@ -208,5 +208,45 @@ export function BlockView({ block }: { block: Block }) {
           </div>
         </footer>
       );
+
+    default:
+      return <UnknownBlock block={block} />;
   }
+}
+
+/**
+ * Het vangnet voor een bloktype dat deze renderer niet kent.
+ *
+ * Twee lagen, want het probleem heeft twee kanten:
+ *
+ *  Tijdens het bouwen — de toekenning aan `never` is een COMPILATIEFOUT zodra
+ *  er een bloktype aan het schema wordt toegevoegd zonder `case` hierboven.
+ *  Eerder gaf de functie dan stilletjes `undefined` terug en verdween de sectie
+ *  van de pagina zonder dat iets klaagde; TypeScript keurde dat goed.
+ *
+ *  Tijdens het draaien — mocht er tóch iets onbekends binnenkomen (bijvoorbeeld
+ *  een oude, opgeslagen configuratie na een wijziging), dan verdwijnt het niet
+ *  in stilte. In ontwikkeling staat er een zichtbaar kader met het type erbij;
+ *  in productie blijft de rest van de site gewoon staan en gaat het naar de
+ *  console. Een onbekend blok mag nooit de hele pagina meenemen.
+ */
+function UnknownBlock({ block }: { block: never }): React.JSX.Element {
+  const type = (block as { type?: unknown } | null)?.type;
+  const label = typeof type === 'string' ? type : 'onbekend';
+
+  if (process.env.NODE_ENV === 'production') {
+    console.error(`[SiteForge] Onbekend bloktype overgeslagen: ${label}`);
+    return <></>;
+  }
+
+  return (
+    <section className="sf-section" aria-label="Onbekend blok">
+      <div className="sf-wrap">
+        <p className="sf-unknown" role="status">
+          Onbekend bloktype: <strong>{label}</strong>. Dit blok staat wel in het schema maar heeft
+          geen component in <code>src/blocks/Blocks.tsx</code>.
+        </p>
+      </div>
+    </section>
+  );
 }

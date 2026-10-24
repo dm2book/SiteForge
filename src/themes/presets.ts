@@ -71,6 +71,13 @@ export const THEMES = {
 
 export type ThemeId = keyof typeof THEMES;
 
+/** Alle thema-ids, zodat het briefschema ze kan valideren in plaats van raden. */
+export const THEME_IDS = Object.keys(THEMES) as [ThemeId, ...ThemeId[]];
+
+export function isThemeId(value: string): value is ThemeId {
+  return value in THEMES;
+}
+
 export const THEME_LIST: { id: ThemeId; name: string; description: string }[] = [
   { id: 'midnight-craft', name: 'Midnight Craft', description: 'Donker en warm, met goud. Klassiek vakmanschap.' },
   { id: 'linen-editorial', name: 'Linen Editorial', description: 'Licht en redactioneel, als een tijdschrift.' },
