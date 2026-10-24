@@ -1,0 +1,156 @@
+/* Stijlen voor GEGENEREERDE klantsites.
+   Alles hangt aan CSS-variabelen die de renderer uit het thema zet, zodat
+   dezelfde componenten er per klant anders uitzien. Mobiel eerst. */
+
+.sf-site {
+  background: var(--sf-bg);
+  color: var(--sf-ink);
+  font-family: var(--sf-font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.sf-site *, .sf-site *::before, .sf-site *::after { box-sizing: border-box; }
+.sf-site p, .sf-site h1, .sf-site h2, .sf-site h3, .sf-site dl, .sf-site dd, .sf-site ul, .sf-site figure { margin: 0; }
+.sf-site ul { list-style: none; padding: 0; }
+.sf-site a { color: inherit; text-decoration: none; }
+.sf-site img, .sf-site svg { display: block; max-width: 100%; }
+.sf-site ::selection { background: var(--sf-accent); color: var(--sf-accent-ink); }
+.sf-site :focus-visible { outline: 2px solid var(--sf-accent); outline-offset: 3px; }
+
+/* ── maatvoering ─────────────────────────────────────────────────────────── */
+.sf-wrap { width: 100%; max-width: var(--sf-max); margin-inline: auto; padding-inline: 20px; }
+.sf-wrap-narrow { max-width: min(760px, var(--sf-max)); }
+.sf-section { padding-block: clamp(56px, 9vw, 112px); }
+.sf-section-tight { padding-block: clamp(28px, 4vw, 44px); }
+.sf-band { background: var(--sf-surface); }
+.sf-center { text-align: center; }
+
+/* ── typografie ──────────────────────────────────────────────────────────── */
+.sf-h1 {
+  font-family: var(--sf-font-heading);
+  font-size: clamp(2.2rem, 6.4vw, 4.1rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.sf-h2 {
+  font-family: var(--sf-font-heading);
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.sf-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sf-accent);
+}
+.sf-lead { font-size: clamp(1.02rem, 1.7vw, 1.2rem); color: var(--sf-ink-muted); max-width: 54ch; text-wrap: pretty; }
+.sf-intro { color: var(--sf-ink-muted); max-width: 58ch; text-wrap: pretty; }
+.sf-caption { font-size: 0.85rem; color: var(--sf-ink-muted); }
+.sf-head { display: grid; gap: 12px; margin-bottom: clamp(28px, 4vw, 48px); }
+
+/* ── knoppen ─────────────────────────────────────────────────────────────── */
+.sf-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.sf-actions-center { justify-content: center; }
+.sf-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 26px;
+  font-size: 0.95rem; font-weight: 600;
+  border-radius: var(--sf-radius);
+  border: 1px solid transparent;
+  transition: transform 160ms ease, opacity 160ms ease, background-color 160ms ease;
+}
+.sf-btn-primary { background: var(--sf-accent); color: var(--sf-accent-ink); }
+.sf-btn-ghost { border-color: var(--sf-border); color: var(--sf-ink); }
+.sf-btn:hover { transform: translateY(-1px); }
+.sf-btn-ghost:hover { background: var(--sf-surface-raised); }
+@media (prefers-reduced-motion: reduce) { .sf-btn { transition: none; } .sf-btn:hover { transform: none; } }
+
+/* ── hero ────────────────────────────────────────────────────────────────── */
+.sf-hero { padding-block: clamp(40px, 7vw, 96px) clamp(48px, 8vw, 104px); }
+.sf-hero-grid { display: grid; gap: clamp(28px, 5vw, 56px); align-items: center; }
+.sf-hero-copy { display: grid; gap: 18px; }
+.sf-hero-media { border-radius: var(--sf-radius); overflow: hidden; }
+.sf-note {
+  display: inline-flex; align-items: center; gap: 9px; width: fit-content;
+  font-size: 0.85rem; font-weight: 600;
+  padding: 8px 15px; border-radius: 999px;
+  background: var(--sf-surface-raised); color: var(--sf-ink);
+}
+.sf-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sf-accent); }
+@media (min-width: 880px) { .sf-hero-grid { grid-template-columns: 1.08fr 0.92fr; } }
+
+/* ── statistieken ────────────────────────────────────────────────────────── */
+.sf-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.sf-stat { display: grid; gap: 2px; }
+.sf-stat-value {
+  font-family: var(--sf-font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1; font-variant-numeric: tabular-nums;
+}
+.sf-stat-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sf-ink-muted); }
+@media (min-width: 720px) { .sf-stats { grid-template-columns: repeat(4, 1fr); } }
+
+/* ── galerij ─────────────────────────────────────────────────────────────── */
+.sf-gallery { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.sf-gallery-item { display: grid; gap: 10px; }
+.sf-gallery-item .sf-media { border-radius: var(--sf-radius); }
+@media (min-width: 640px) { .sf-gallery { grid-template-columns: repeat(2, 1fr); } }
+/* Een net raster van drie. Het eerste item liet eerder twee kolommen beslaan,
+   maar dan valt er bij zes foto's een gat op de laatste rij. */
+@media (min-width: 1000px) { .sf-gallery { grid-template-columns: repeat(3, 1fr); } }
+
+/* ── rijen (prijzen, openingstijden) ─────────────────────────────────────── */
+.sf-rows { display: grid; }
+.sf-row {
+  display: grid; grid-template-columns: 1fr auto; gap: 4px 20px;
+  padding-block: 18px; border-bottom: 1px solid var(--sf-border);
+  align-items: baseline;
+}
+.sf-row-name { font-weight: 600; }
+.sf-row-price { font-variant-numeric: tabular-nums; font-weight: 600; }
+.sf-row-desc { grid-column: 1 / -1; font-size: 0.9rem; color: var(--sf-ink-muted); }
+.sf-row-simple .sf-row-desc { display: none; }
+.sf-row-duration { white-space: nowrap; }
+
+/* ── team ────────────────────────────────────────────────────────────────── */
+.sf-team { display: grid; grid-template-columns: 1fr; gap: 28px; }
+.sf-member { display: grid; gap: 8px; }
+.sf-member .sf-media { border-radius: var(--sf-radius); margin-bottom: 6px; }
+.sf-member-name { font-family: var(--sf-font-heading); font-size: 1.2rem; font-weight: 700; }
+.sf-member-role { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sf-accent); }
+.sf-member-bio { font-size: 0.9rem; color: var(--sf-ink-muted); }
+@media (min-width: 640px) { .sf-team { grid-template-columns: repeat(3, 1fr); } }
+
+/* ── citaten ─────────────────────────────────────────────────────────────── */
+.sf-quotes { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.sf-quote {
+  display: grid; gap: 14px; height: 100%;
+  padding: 26px; border-radius: var(--sf-radius);
+  background: var(--sf-bg); border: 1px solid var(--sf-border);
+}
+.sf-quote p { font-size: 1.02rem; text-wrap: pretty; }
+.sf-quote-author { font-style: normal; font-weight: 600; }
+.sf-quote-meta { color: var(--sf-ink-muted); font-size: 0.88rem; }
+@media (min-width: 760px) { .sf-quotes { grid-template-columns: repeat(2, 1fr); } }
+
+/* ── adres / split ───────────────────────────────────────────────────────── */
+.sf-split { display: grid; gap: clamp(28px, 5vw, 56px); }
+.sf-address { font-style: normal; display: grid; gap: 6px; color: var(--sf-ink-muted); align-content: start; }
+.sf-address a { text-decoration: underline; text-underline-offset: 3px; }
+@media (min-width: 880px) { .sf-split { grid-template-columns: 1.2fr 0.8fr; } }
+
+/* ── cta en footer ───────────────────────────────────────────────────────── */
+.sf-cta { background: var(--sf-surface-raised); }
+.sf-cta .sf-lead { margin-inline: auto; }
+.sf-cta .sf-caption { margin-top: 14px; }
+.sf-footer { background: var(--sf-surface); border-top: 1px solid var(--sf-border); padding-block: 40px; }
+.sf-footer-grid { display: grid; gap: 20px; }
+.sf-footer-name { font-family: var(--sf-font-heading); font-size: 1.15rem; font-weight: 700; }
+@media (min-width: 720px) { .sf-footer-grid { grid-template-columns: 1fr auto; } }

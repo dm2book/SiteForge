@@ -1,0 +1,32 @@
+@import 'tailwindcss';
+
+/* De kleuren komen uit het oorspronkelijke prototype (legacy/prototype.html),
+   zodat de echte applicatie dezelfde visuele richting houdt. */
+@theme {
+  --color-ink: #e8e8f0;
+  --color-muted: #888899;
+  --color-faint: #555566;
+  --color-bg-0: #0a0a0f;
+  --color-bg-1: #111118;
+  --color-bg-2: #18181f;
+  --color-bg-3: #1e1e28;
+  --color-line: rgba(255, 255, 255, 0.07);
+  --color-line-2: rgba(255, 255, 255, 0.12);
+  --color-brand: #7c6fff;
+  --color-brand-2: #a78bfa;
+}
+
+html { color-scheme: dark; }
+body {
+  background: var(--color-bg-0);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 4px; }
+
+.skip-link {
+  position: absolute; left: 50%; top: -60px; transform: translateX(-50%);
+  background: var(--color-brand); color: #fff; padding: 10px 18px;
+  border-radius: 8px; z-index: 60; transition: top 150ms ease;
+}
+.skip-link:focus { top: 12px; }
