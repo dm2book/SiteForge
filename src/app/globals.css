@@ -5,15 +5,28 @@
 @theme {
   --color-ink: #e8e8f0;
   --color-muted: #888899;
-  --color-faint: #555566;
+  /* Was #555566: dat gaf 2,7:1 op de achtergrond, ruim onder de WCAG-AA-eis
+     van 4,5:1, terwijl deze kleur wél echte tekst draagt ("(optioneel)", de
+     uitleg onder het brancheveld, het onderschrift van de preview). Nu 5,1:1
+     op bg-0 en 4,6:1 op de lichtste kaart. Zelfde tint, alleen lichter. */
+  --color-faint: #808093;
   --color-bg-0: #0a0a0f;
   --color-bg-1: #111118;
   --color-bg-2: #18181f;
   --color-bg-3: #1e1e28;
   --color-line: rgba(255, 255, 255, 0.07);
   --color-line-2: rgba(255, 255, 255, 0.12);
+  /* De merkkleur blijft ongewijzigd: hij draagt tekst ("Forge", de bovenkop)
+     en de focusrand, en haalt daar 5,2:1. */
   --color-brand: #7c6fff;
-  --color-brand-2: #a78bfa;
+  /* Wit op de merkkleur haalt maar 3,8:1, en dat is te weinig voor knoptekst.
+     Een knopvlak krijgt daarom een iets diepere tint van hetzelfde paars
+     (5,3:1 met wit) en bij hover de lichtere variant (4,5:1). Zo blijft de
+     knop dezelfde kleur in beleving, maar is het opschrift leesbaar.
+     De oude --color-brand-2 (#a78bfa) was lichter en gaf 2,7:1 met wit: de
+     hover-toestand was dus de slechtst leesbare van de twee. */
+  --color-brand-strong: #6354e8;
+  --color-brand-2: #6c5dff;
 }
 
 html { color-scheme: dark; }
@@ -26,7 +39,7 @@ body {
 
 .skip-link {
   position: absolute; left: 50%; top: -60px; transform: translateX(-50%);
-  background: var(--color-brand); color: #fff; padding: 10px 18px;
+  background: var(--color-brand-strong); color: #fff; padding: 10px 18px;
   border-radius: 8px; z-index: 60; transition: top 150ms ease;
 }
 .skip-link:focus { top: 12px; }

@@ -62,9 +62,13 @@ export function BlockView({ block }: { block: Block }): React.JSX.Element {
           <div className="sf-wrap">
             <dl className="sf-stats">
               {block.items.map((s, i) => (
+                /* In een <dl> hoort de term (<dt>) vóór de beschrijving (<dd>).
+                   Het stond omgekeerd omdat het getal bovenaan moet staan; dat
+                   doet nu CSS (`order` in site.css), zodat het beeld hetzelfde
+                   blijft en de voorleesvolgorde klopt. */
                 <div className="sf-stat" key={i}>
-                  <dd className="sf-stat-value">{s.value}</dd>
                   <dt className="sf-stat-label">{s.label}</dt>
+                  <dd className="sf-stat-value">{s.value}</dd>
                 </div>
               ))}
             </dl>

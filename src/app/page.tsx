@@ -148,7 +148,7 @@ export default function HomePage() {
               <div className="flex flex-wrap items-center gap-4 pt-1">
                 <button
                   type="submit"
-                  className="min-h-12 rounded-lg bg-brand px-7 font-semibold text-white transition hover:bg-brand-2"
+                  className="min-h-12 rounded-lg bg-brand-strong px-7 font-semibold text-white transition hover:bg-brand-2"
                 >
                   Bekijk mijn website
                 </button>

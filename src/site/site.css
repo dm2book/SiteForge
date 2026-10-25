@@ -66,8 +66,15 @@
   border: 1px solid transparent;
   transition: transform 160ms ease, opacity 160ms ease, background-color 160ms ease;
 }
-.sf-btn-primary { background: var(--sf-accent); color: var(--sf-accent-ink); }
-.sf-btn-ghost { border-color: var(--sf-border); color: var(--sf-ink); }
+/* `.sf-site a { color: inherit }` hierboven staat op twee punten specificiteit
+   (een klasse plus een element) en won het van `.sf-btn-primary` (één klasse).
+   Knoppen zijn <a>-elementen, dus de knoptekst kreeg stilletjes de gewone
+   tekstkleur in plaats van de accent-inkt: lichte tekst op een gekleurd vlak,
+   met te weinig contrast. Met `.sf-site` ervoor telt de knopregel twee klassen
+   en wint hij wel. Gevonden door de knop in Chromium op te meten; in de
+   stylesheet zag je het niet. */
+.sf-site .sf-btn-primary { background: var(--sf-accent); color: var(--sf-accent-ink); }
+.sf-site .sf-btn-ghost { border-color: var(--sf-border); color: var(--sf-ink); }
 .sf-btn:hover { transform: translateY(-1px); }
 .sf-btn-ghost:hover { background: var(--sf-surface-raised); }
 @media (prefers-reduced-motion: reduce) { .sf-btn { transition: none; } .sf-btn:hover { transform: none; } }
@@ -88,13 +95,21 @@
 
 /* ── statistieken ────────────────────────────────────────────────────────── */
 .sf-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+/* De term staat in de HTML vóór de beschrijving (zo hoort een <dl>), maar het
+   getal moet bovenaan staan. `order` draait alleen het beeld om; een
+   schermleesprogramma volgt de HTML en hoort dus eerst waar het getal over
+   gaat. */
 .sf-stat { display: grid; gap: 2px; }
 .sf-stat-value {
+  order: 1;
   font-family: var(--sf-font-heading);
   font-size: clamp(1.5rem, 3vw, 2rem);
   line-height: 1; font-variant-numeric: tabular-nums;
 }
-.sf-stat-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sf-ink-muted); }
+.sf-stat-label {
+  order: 2;
+  font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sf-ink-muted);
+}
 @media (min-width: 720px) { .sf-stats { grid-template-columns: repeat(4, 1fr); } }
 
 /* ── galerij ─────────────────────────────────────────────────────────────── */

@@ -32,7 +32,7 @@ export default async function PreviewPage({ searchParams }: Props) {
         </ul>
         <Link
           href="/"
-          className="mt-8 inline-flex min-h-11 items-center rounded-lg bg-brand px-6 font-medium text-white"
+          className="mt-8 inline-flex min-h-11 items-center rounded-lg bg-brand-strong px-6 font-medium text-white hover:bg-brand-2"
         >
           Terug naar het formulier
         </Link>

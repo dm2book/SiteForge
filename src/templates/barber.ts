@@ -1,6 +1,7 @@
 import type { Brief } from '@/lib/brief';
 import { THEMES } from '@/themes/presets';
-import type { SiteConfig } from '@/site/schema';
+import { META_LIMITS, type SiteConfig } from '@/site/schema';
+import { fit } from './text';
 
 /**
  * Het barbier-template.
@@ -26,15 +27,36 @@ export function buildBarberSite(brief: Brief): SiteConfig {
   const place = city ? `${city}` : 'de stad';
   const sinceLine = since ? `Skin fades sinds ${since}.` : 'Vakwerk, elke dag opnieuw.';
 
+  /* ── Teksten die de naam van de klant bevatten ───────────────────────────
+     Deze velden hebben een limiet in het schema en krijgen er een naam van
+     maximaal 60 tekens bij. Vroeger werd de zin gewoon samengeplakt en liep
+     hij over: bij een naam van 38 tekens plus "Amsterdam" werd de titel 61
+     tekens, keurde het schema de configuratie af en kreeg de bezoeker een
+     serverfout. `fit` kiest nu de rijkste variant die nog past. Wat wegvalt
+     is onze eigen toevoeging, nooit de naam van de zaak. */
+
+  const title = fit(META_LIMITS.title, [
+    city ? `${name} — Barbier in ${city}` : `${name} — Barbier`,
+    `${name} — Barbier`,
+    name,
+  ]);
+
+  const description = fit(META_LIMITS.description, [
+    `${name} knipt in ${place}: skin fades, schaarwerk en hot-towel shaves. ` +
+      `Online een stoel boeken of inlopen vóór 11.00.`,
+    `${name} knipt in ${place}: skin fades, schaarwerk en hot-towel shaves.`,
+    `${name}: skin fades, schaarwerk en hot-towel shaves.`,
+  ]);
+
+  const heroEyebrow = fit(60, [city ? `${city} · Barbier` : 'Barbier', city, 'Barbier']);
+
   return {
     schemaVersion: 1,
     meta: {
       businessName: name,
       city: city || undefined,
-      title: city ? `${name} — Barbier in ${city}` : `${name} — Barbier`,
-      description:
-        `${name} knipt in ${place}: skin fades, schaarwerk en hot-towel shaves. ` +
-        `Online een stoel boeken of inlopen vóór 11.00.`,
+      title,
+      description,
       locale: 'nl',
     },
     theme,
@@ -42,7 +64,7 @@ export function buildBarberSite(brief: Brief): SiteConfig {
       {
         id: 'hero',
         type: 'hero',
-        eyebrow: city ? `${city} · Barbier` : 'Barbier',
+        eyebrow: heroEyebrow,
         headline: 'Een nette knipbeurt, op de dag dat het uitkomt.',
         lead: `${sinceLine} Boek de stoel die je wilt, of loop binnen vóór 11.00 — dan neemt de eerste vrije stoel je mee.`,
         note: 'Vandaag nog plek om 14.40',
@@ -159,7 +181,7 @@ export function buildBarberSite(brief: Brief): SiteConfig {
         id: 'footer',
         type: 'footer',
         businessName: name,
-        tagline: city ? `Barbier in ${city}` : 'Barbier',
+        tagline: fit(100, [city ? `Barbier in ${city}` : 'Barbier', 'Barbier']),
         address: city ? `Straatnaam 1, ${city}` : 'Straatnaam 1',
         phone: '+31 6 00000000',
       },

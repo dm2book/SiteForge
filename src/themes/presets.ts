@@ -1,4 +1,5 @@
 import type { Theme } from '@/site/schema';
+import { FONT_STACKS } from './fonts';
 
 /**
  * Thema's zijn alleen variabelen.
@@ -11,9 +12,11 @@ import type { Theme } from '@/site/schema';
  * een site ook leesbaar blijft als een webfont niet laadt.
  */
 
-const SERIF = "'Playfair Display', Georgia, 'Times New Roman', serif";
-const SANS = "'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
-const CONDENSED = "'Oswald', 'Arial Narrow', system-ui, sans-serif";
+/* De stacks staan in themes/fonts.ts, want het schema laat alleen díé waarden
+   toe. Zet je hier een eigen string neer, dan wordt het thema afgekeurd — en
+   dat is precies de bedoeling: een lettertype belandt in CSS en is daarmee
+   geen vrij tekstveld. */
+const { serif: SERIF, sans: SANS, condensed: CONDENSED } = FONT_STACKS;
 
 /** Donker, warm en rustig. Vakmanschap zonder te schreeuwen. */
 export const midnightCraft: Theme = {
@@ -55,7 +58,11 @@ export const steelFade: Theme = {
   colorInk: '#eef2f5',
   colorInkMuted: '#95a1ac',
   colorAccent: '#e2574c',
-  colorAccentInk: '#ffffff',
+  /* Was wit. Wit op dit rood geeft een contrast van 3,68:1 en zakt daarmee
+     onder de WCAG-AA-eis van 4,5:1 voor knoptekst. De accentkleur zelf blijft
+     ongewijzigd — alleen de tekst erop is nu donker (5,10:1), net als in
+     midnight-craft. Zo blijft het thema herkenbaar en is de knop leesbaar. */
+  colorAccentInk: '#1a0f0e',
   colorBorder: 'rgba(238, 242, 245, 0.12)',
   fontHeading: CONDENSED,
   fontBody: SANS,
@@ -79,9 +86,21 @@ export function isThemeId(value: string): value is ThemeId {
 }
 
 export const THEME_LIST: { id: ThemeId; name: string; description: string }[] = [
-  { id: 'midnight-craft', name: 'Midnight Craft', description: 'Donker en warm, met goud. Klassiek vakmanschap.' },
-  { id: 'linen-editorial', name: 'Linen Editorial', description: 'Licht en redactioneel, als een tijdschrift.' },
-  { id: 'steel-fade', name: 'Steel Fade', description: 'Strak en stoer, smalle letters, hard contrast.' },
+  {
+    id: 'midnight-craft',
+    name: 'Midnight Craft',
+    description: 'Donker en warm, met goud. Klassiek vakmanschap.',
+  },
+  {
+    id: 'linen-editorial',
+    name: 'Linen Editorial',
+    description: 'Licht en redactioneel, als een tijdschrift.',
+  },
+  {
+    id: 'steel-fade',
+    name: 'Steel Fade',
+    description: 'Strak en stoer, smalle letters, hard contrast.',
+  },
 ];
 
 /** De webfonts die de thema's gebruiken, voor één <link> in de preview. */

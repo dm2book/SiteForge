@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { briefFromParams } from '@/lib/params';
 import { buildSite } from '@/templates';
-import { parseSiteConfig, type SiteConfig } from '@/site/schema';
+import { formatConfigErrors, parseSiteConfig, type SiteConfig } from '@/site/schema';
 import { SiteRenderer } from '@/site/SiteRenderer';
 
 /**
@@ -24,9 +24,7 @@ type Props = { searchParams: Promise<Record<string, string | string[] | undefine
  * goedkoop (het template is een pure functie) en wordt straks één opzoeking in
  * de database.
  */
-function resolveConfig(
-  params: Record<string, string | string[] | undefined>,
-): SiteConfig | null {
+function resolveConfig(params: Record<string, string | string[] | undefined>): SiteConfig | null {
   const brief = briefFromParams(params);
   if (!brief.ok) return null;
 
@@ -44,7 +42,10 @@ function resolveConfig(
  */
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const config = resolveConfig(await searchParams);
-  if (!config) return { title: 'Website niet gevonden' };
+  /* Neutraal gehouden: deze titel verschijnt zowel bij een onbekende site als
+     bij een configuratie die we niet kunnen tonen. Hij verraadt niets over
+     wat er precies misging. */
+  if (!config) return { title: 'Deze website kan niet worden getoond', robots: { index: false } };
 
   const { title, description, businessName } = config.meta;
   return {
@@ -67,10 +68,15 @@ export default async function RenderPage({ searchParams }: Props) {
      iets oplevert wat het schema niet toestaat. */
   const parsed = parseSiteConfig(config);
   if (!parsed.ok) {
-    throw new Error(
-      `Het template leverde een ongeldige configuratie op: ` +
-        parsed.errors.map((e) => `${e.path}: ${e.message}`).join('; '),
+    /* Dit hoort niet te gebeuren: sinds `templates/text.ts` schrijft een
+       template binnen de limieten van het schema. Gebeurt het tóch, dan is het
+       onze fout en niet die van de bezoeker. De details gaan naar de serverlog;
+       de bezoeker krijgt via error.tsx een rustige pagina zonder stacktrace,
+       want een foutmelding uit het binnenwerk hoort niet op een klantsite. */
+    console.error(
+      '[SiteForge] Ongeldige configuratie op /render:\n' + formatConfigErrors(parsed.errors),
     );
+    throw new Error('CONFIG_INVALID');
   }
 
   return <SiteRenderer config={parsed.config} />;

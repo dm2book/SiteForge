@@ -44,15 +44,31 @@ describe('metadata van de gegenereerde site', () => {
     expect(meta.twitter?.title).toBe(meta.title);
   });
 
-  it('valt netjes terug bij onbruikbare parameters', async () => {
+  it('valt netjes terug bij onbruikbare parameters, zonder iets te verraden', async () => {
     const meta = await generateMetadata(params({ name: '', category: 'barber' }));
-    expect(meta.title).toBe('Website niet gevonden');
+    expect(meta.title).toBe('Deze website kan niet worden getoond');
+    // Geen binnenwerk in de titel, en niet indexeerbaar.
+    expect(String(meta.title)).not.toMatch(/schema|config|Zod|Error/i);
+    expect(meta.robots).toMatchObject({ index: false });
   });
 
-  it('houdt de titel binnen de 60 tekens, ook bij een lange naam', async () => {
-    const meta = await generateMetadata(
-      params({ ...geldig, name: 'Een Bijzonder Lange Kapperszaak Met Een Hele Lange Naam' }),
-    );
+  /**
+   * Deze test slaagde eerder om de verkeerde reden.
+   *
+   * De naam hieronder is 54 tekens. Met ", Barbier in Amsterdam" erachter werd
+   * de titel 77 tekens, keurde het schema de configuratie af en gaf
+   * `generateMetadata` de terugvaltitel "Website niet gevonden" van 21 tekens.
+   * Dáárop slaagde de assertie — de test mat de noodrem, niet het template, en
+   * daardoor bleef de 500-fout onzichtbaar.
+   *
+   * Nu eist de test ook dat er een ECHTE titel uitkomt, met de naam van de
+   * klant erin.
+   */
+  it('houdt de titel binnen de 60 tekens én blijft een echte titel, ook bij een lange naam', async () => {
+    const naam = 'Een Bijzonder Lange Kapperszaak Met Een Hele Lange Naam';
+    const meta = await generateMetadata(params({ ...geldig, name: naam }));
+    expect(meta.title).toContain(naam);
     expect(String(meta.title).length).toBeLessThanOrEqual(60);
+    expect(meta.title).not.toBe('Deze website kan niet worden getoond');
   });
 });
