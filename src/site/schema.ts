@@ -432,10 +432,25 @@ export const META_LIMITS = {
   description: 155,
 } as const;
 
+/**
+ * De versie van dit formaat, en de enige plek waar dat getal staat.
+ *
+ * Het schema gebruikt hem, de templates vullen hem in, en straks gaat dezelfde
+ * waarde in de kolom `schema_version` van de database. Stond het getal op drie
+ * plekken, dan kunnen die uit de pas gaan lopen — en dan denkt de ene helft van
+ * het systeem iets anders over een opgeslagen website dan de andere.
+ *
+ * Verhogen doe je alleen als een bestaand veld een andere betekenis krijgt of
+ * verdwijnt; zie besluit 0002, paragraaf 3. Een nieuw optioneel veld of een
+ * nieuw bloktype verhoogt hem niet — maar dat werkt alléén als er een regel in
+ * `COMPATIBILITY` (src/site/stored.ts) staat die het toestaat, met tests erbij.
+ */
+export const CURRENT_SCHEMA_VERSION = 1;
+
 export const SiteConfigSchema = z
   .object({
     /** Verhoog dit als het formaat verandert, zodat oude sites te herkennen zijn. */
-    schemaVersion: z.literal(1),
+    schemaVersion: z.literal(CURRENT_SCHEMA_VERSION),
     meta: z
       .object({
         businessName: z.string().min(1).max(META_LIMITS.businessName),
@@ -524,6 +539,13 @@ export type ConfigError = {
   message: string;
   /** Het soort fout van Zod, bijvoorbeeld `unrecognized_keys` of `too_big`. */
   code: string;
+  /**
+   * Bij `unrecognized_keys`: de namen van de velden die niet in het schema
+   * staan. Zod geeft die apart door; ze uit de foutmelding vissen zou
+   * betekenen dat een beslissing over wegstrippen afhangt van de bewoording
+   * van een melding, en die kan veranderen.
+   */
+  keys?: string[];
 };
 
 export type ParseResult = { ok: true; config: SiteConfig } | { ok: false; errors: ConfigError[] };
@@ -537,6 +559,7 @@ export function parseSiteConfig(input: unknown): ParseResult {
       path: i.path.join('.') || '(root)',
       message: i.message,
       code: i.code,
+      ...(i.code === 'unrecognized_keys' ? { keys: [...i.keys] } : {}),
     })),
   };
 }

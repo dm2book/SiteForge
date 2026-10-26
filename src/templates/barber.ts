@@ -1,6 +1,6 @@
 import type { Brief } from '@/lib/brief';
 import { THEMES } from '@/themes/presets';
-import { META_LIMITS, type SiteConfig } from '@/site/schema';
+import { CURRENT_SCHEMA_VERSION, META_LIMITS, type SiteConfig } from '@/site/schema';
 import { fit } from './text';
 
 /**
@@ -51,7 +51,7 @@ export function buildBarberSite(brief: Brief): SiteConfig {
   const heroEyebrow = fit(60, [city ? `${city} · Barbier` : 'Barbier', city, 'Barbier']);
 
   return {
-    schemaVersion: 1,
+    schemaVersion: CURRENT_SCHEMA_VERSION,
     meta: {
       businessName: name,
       city: city || undefined,
